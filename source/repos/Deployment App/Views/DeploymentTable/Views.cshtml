@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Deployment_App.Models.DeploymentTable>
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "View ctl.deployment_log";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>view</title>
+</head>
+<body>
+    <h1>View ctl.deployment_log</h1>
+    <hr />
+    <div>
+        @Html.ActionLink("Добавление записи", "Create", "DeploymentTable")
+    </div>
+    <div style="width:500px;">
+        @Html.Grid(Model).Columns(columns =>
+    {
+       columns.Add(c => c.TASK_ID_LIST).Titled("TASK_ID");
+       columns.Add(c => c.ISSUE).Titled("ISSUE").Filterable(true);
+       columns.Add(c => c.DATE_DEPLOY).Titled("DATE_DEPLOY");
+       columns.Add(c => c.DEPLOYER).Titled("DEPLOYER").Filterable(true);
+       columns.Add(c => c.TYPE_EXCEPTION).Titled("TYPE_EXCEPTION").Filterable(true);
+       columns.Add(c => c.COMMENT_DEPLOY).Titled("COMMENT_DEPLOY");
+       columns.Add(c => c.MAIL_DATE).Titled("MAIL_DATE");
+       columns.Add(c => c.MAIL_SUBJECT).Titled("MAIL_SUBJECT").Filterable(true);
+       columns.Add(c => c.MAIL_SENDER).Titled("MAIL_SENDER").Filterable(true);
+       columns.Add(c => c.DATA_REPORT).Titled("DATA_REPORT");
+       columns.Add(c => c.GIT).Titled("GIT");
+       columns.Add(c => c.IS_FIX).Titled("IS_FIX");
+       columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth("50%")
+        .RenderValueAs(o => Html.ActionLink("Edit", "Edit", new { c = o.DEPLOYMENT_ID }));
+    }).WithPaging(5).Sortable(true).Filterable(true)
+    </div>
+
+
+    <div>
+        @Html.ActionLink("Вернутся на главную", "Index", "Home")
+    </div>
+</body>
+</html>
